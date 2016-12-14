@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="query">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="results">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="channel">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="title" type="xsd:string" />
+                    <xsd:element name="link" type="xsd:string" />
+                    <xsd:element name="description" type="xsd:string" />
+                    <xsd:element name="language" type="xsd:string" />
+                    <xsd:element name="lastBuildDate" type="xsd:string" />
+                    <xsd:element name="ttl" type="xsd:int" />
+                    <xsd:element name="location">
+                      <xsd:complexType>
+                        <xsd:attribute name="city" type="xsd:string" />
+                        <xsd:attribute name="country" type="xsd:string" />
+                        <xsd:attribute name="region" type="xsd:string" />
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="units">
+                      <xsd:complexType>
+                        <xsd:attribute name="distance" type="xsd:string" />
+                        <xsd:attribute name="pressure" type="xsd:string" />
+                        <xsd:attribute name="speed" type="xsd:string" />
+                        <xsd:attribute name="temperature" type="xsd:string" />
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="wind">
+                      <xsd:complexType>
+                        <xsd:attribute name="chill" type="xsd:int" />
+                        <xsd:attribute name="direction" type="xsd:int" />
+                        <xsd:attribute name="speed" type="xsd:int" />
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="atmosphere">
+                      <xsd:complexType>
+                        <xsd:attribute name="humidity" type="xsd:int" />
+                        <xsd:attribute name="pressure" type="xsd:decimal" />
+                        <xsd:attribute name="rising" type="xsd:int" />
+                        <xsd:attribute name="visibility" type="xsd:int" />
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="astronomy">
+                      <xsd:complexType>
+                        <xsd:attribute name="sunrise" type="xsd:dateTime" />
+                        <xsd:attribute name="sunset" type="xsd:dateTime" />
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="image">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="title" type="xsd:string" />
+                          <xsd:element name="width" type="xsd:int" />
+                          <xsd:element name="height" type="xsd:int" />
+                          <xsd:element name="link" type="xsd:string" />
+                          <xsd:element name="url" type="xsd:string" />
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="item">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="title" type="xsd:string" />
+                          <xsd:element name="lat" type="xsd:decimal" />
+                          <xsd:element name="long" type="xsd:decimal" />
+                          <xsd:element name="link" type="xsd:string" />
+                          <xsd:element name="pubDate" type="xsd:string" />
+                          <xsd:element name="condition">
+                            <xsd:complexType>
+                              <xsd:attribute name="code" type="xsd:int" />
+                              <xsd:attribute name="date" type="xsd:string" />
+                              <xsd:attribute name="temp" type="xsd:int" />
+                              <xsd:attribute name="text" type="xsd:string" />
+                            </xsd:complexType>
+                          </xsd:element>
+                          <xsd:element name="description" type="xsd:string" />
+                          <xsd:element name="forecast">
+                            <xsd:complexType>
+                              <xsd:attribute name="code" type="xsd:int" />
+                              <xsd:attribute name="date" type="xsd:dateTime" />
+                              <xsd:attribute name="day" type="xsd:string" />
+                              <xsd:attribute name="high" type="xsd:int" />
+                              <xsd:attribute name="low" type="xsd:int" />
+                              <xsd:attribute name="text" type="xsd:string" />
+                            </xsd:complexType>
+                          </xsd:element>
+                          <xsd:element name="guid">
+                            <xsd:complexType>
+                              <xsd:attribute name="isPermaLink" type="xsd:boolean" />
+                            </xsd:complexType>
+                          </xsd:element>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="count" type="xsd:int" />
+      <xsd:attribute name="created" type="xsd:dateTime" />
+      <xsd:attribute name="lang" type="xsd:string" />
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

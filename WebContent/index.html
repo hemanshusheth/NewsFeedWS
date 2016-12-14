@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Welcome to World News on Map.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description"
+	content="Think of a place. Get News instantly from there" />
+<meta name="keywords" content="News, Map, Places, Location, Live Feeds" />
+<meta name="msvalidate.01" content="75D6A50BC151FB8DCB34C9478F9B8C5F" />
+<link href="images/logo-20140917-favicon.ico" rel="shortcut icon"
+	type="image/x-icon" />
+<link href='http://fonts.googleapis.com/css?family=Roboto'
+	rel='stylesheet' type='text/css'>
+<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+<script src="js/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/init.js"></script>
+<script src="js/main.js"></script>
+<!--<script src="js/pace.js"></script> -->
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMJVP4JluOmg8nKVKlEO8vmF4VJt6nsF4&sensor=false&libraries=places">
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<!-- ICON NEEDS FONT AWESOME FOR CHEVRON UP ICON -->
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<script type="text/javascript">
+	var marker;
+	var geocoder;
+	var map;
+	var myLatlng;
+	var infoWindow;
+	var contentString;
+	var image = 'images/thumbs/rss_big.png';
+	var selectedLocation;
+	var selectedCountry;
+	var selectedLocationType;
+	var keyword;
+	var final_url;
+	var topic;
+	var ZOOM_LEVEL_STREET = 15;
+	var ZOOM_LEVEL_ZIP = 13;
+	var ZOOM_LEVEL_CITY = 10;
+	var ZOOM_LEVEL_STATE = 5;
+	var ZOOM_LEVEL_COUNTRY = 2;
+	var ZOOM_LEVEL_CONTINENT = 1;
+	var LOCATION_TYPE_ZIP = "zip";
+	var LOCATION_TYPE_CITY = "city";
+	var LOCATION_TYPE_STATE = "state";
+	var LOCATION_TYPE_COUNTRY ="country";
+	var GOOGLE_NEWS_WEBSERVICE = "http://webapp-worldnewsonmap.rhcloud.com//NewsFeedWS/rest/json/";
+	var YAHOO_WEATHER_WEBSERVICE = "http://webapp-worldnewsonmap.rhcloud.com/NewsFeedWS/rest/weather/json/";
+	var NEWS_TYPE="news";
+	var WEATHER_TYPE="weather";
+	
+</script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+	$(document).ready(function() {
+		if ($('#back-to-top').length) {
+		    var scrollTrigger = 100, // px
+		        backToTop = function () {
+		            var scrollTop = $(window).scrollTop();
+		            if (scrollTop > scrollTrigger) {
+		                $('#back-to-top').addClass('show');
+		            } else {
+		                $('#back-to-top').removeClass('show');
+		            }
+		        };
+		    backToTop();
+		    $(window).on('scroll', function () {
+		        backToTop();
+		    });
+		    $('#back-to-top').on('click', function (e) {
+		        e.preventDefault();
+		        $('html,body').animate({
+		            scrollTop: 0
+		        }, 700);
+		    });
+		}
+	});
+</script>
+<link rel="stylesheet" href="css/skel-noscript.css" />
+<link rel="stylesheet" href="css/style.css" />
+<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+</head>
+<body onload="initialize()">
+
+	<!--h - specifies the top headlines topic
+	w - specifies the world topic
+	b - specifies the business topic
+	n - specifies the nation topic
+	t - specifies the science and technology topic
+	el - specifies the elections topic
+	p - specifies the politics topic
+	e - specifies the entertainment topic
+	s - specifies the sports topic
+	m - specifies the health topic
+	-->
+	<!-- Header -->
+	<header style="left: 0; top: 0">
+		<div id="header">
+			<!-- Logo -->
+			<h1 id="logo">
+				<a href="#header"><img src="images/logo_half.png"
+					style="float: left;" />Map News </a>
+			</h1>
+			<!-- Nav -->
+			<nav id="nav" style="right: 0.4em; top: 0">
+				<ul id="menu">
+					<li><input type="text" id="address" placeholder="Search Place"
+						class="controls" /></li>
+					<li><input value="Go" class="go" id="go"
+						onclick="buttonClickSearchLocation()" type="submit" /></li>
+					<li><a href="#howitworks">How it works</a></li>
+					<li><a href="#aboutme">About Me</a></li>
+					<li><a href="#contact">Say Hello</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<!-- Default button GO  -->
+	<script>
+		document.getElementById('go').onkeydown = function(e){
+	   	   if(e.keyCode == 13){
+	   		   buttonClickSearchLocation();
+	   		   }
+	   		};
+	</script>
+	<!-- Animated scroll -->
+	<script>
+		$(function() {
+			$('a[href*=#]:not([href=#])')
+					.click(
+							function() {
+								if (location.pathname.replace(/^\//, '') == this.pathname
+										.replace(/^\//, '')
+										&& location.hostname == this.hostname) {
+									var target = $(this.hash);
+									target = target.length ? target
+											: $('[name=' + this.hash.slice(1)
+													+ ']');
+									if (target.length) {
+										$('html,body').animate({
+											scrollTop : target.offset().top
+										}, 1000);
+										return false;
+									}
+								}
+							});
+		});
+	</script>
+	<!-- Intro -->
+	<section id="intro">
+		<div id="body">
+			<div id="map-canvas"></div>
+		</div>
+		<a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+	</section>
+	<!-- Help -->
+	<section id="howitworks" class="main style3 primary">
+		<div class="container">
+			<header>
+				<h2>How It Works</h2>
+				<p>Learn how MapNews work</p>
+			</header>
+			<div class="container">
+				<div class="row half">
+					<div class="row half">
+						<div class="6u">
+							<img src="images\screenshots\search.png" />
+						</div>
+					</div>
+					<div class="6u">Search any location on map of which you to see news of</div>
+				</div>
+				<div class="row half">
+					<div class="6u">Or you can simply point your mouse pointer to
+						anywhere on the map. Based on the zoom level, you will get the
+						news of the area for country, state, city, zip or even street.</div>
+					<div class="row half">
+						<div class="6u">
+							<img src="images\screenshots\mousesearchpng.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- About Me -->
+	<section id="aboutme" class="main style3 third">
+		<div class="container">
+			<header>
+				<h2>About Me</h2>
+			</header>
+			<div>
+				<p>Hello folks. Allow me to introduce myself. I am Hemanshu
+					Sheth</p>
+				<p>
+					Welcome to my website googlemapnews.com.I am a Master's in
+					Computer Science student at Northeastern University.I have done my
+					Bachelors&#39; in Computer Engineering at Rajiv Gandhi Institute of
+					technology,Mumbai,India.I live in Boston,Massachuessets and love 
+					working on interesting software project. This website was built as 
+					a school project by me and my colleague Amar Zavery,Currently, it is  
+					maintained by me with a lot of consultation and guidance of Krunal Sheth.
+				</p>
+			</div>
+		</div>
+	</section>
+	<!--Contact Us -->
+	<section id="contact" class="main style3 secondary">
+		<div class="content container">
+			<header>
+				<h2>Say Hello</h2>
+				<p>Send in your feedback, suggestions, criticism or just say
+					Hi.</p>
+			</header>
+			<div class="box container small">
+				<form method="post" id="msg-form" action="http://webapp-worldnewsonmap.rhcloud.com/NewsFeedWS/sendMessageServlet">
+					<div class="row half">
+						<div class="6u">
+							<input type="text" class="form-control" name="name" placeholder="Name" required=""/>
+						</div>
+						<div class="6u">
+							<input type="text" class="form-control" name="location" placeholder="Your Location" required=""/>
+						</div>
+					</div>
+					<div class="row half">
+						<div class="12u">
+							<textarea name="message" class="form-control" placeholder="Message" rows="6" required=""></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="12u" style="padding-left: 350px;padding-top: 20px;">
+							<ul class="actions">
+								<li><input type="submit" class="button"
+									value="Send Message" />
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- Footer -->
+	<footer>
+		<div id="footer">
+			<!--Social Icons Use anything from here: http://fortawesome.github.io/Font-Awesome/cheatsheet/)-->
+			<ul class="actions">
+				<li><a href="https://twitter.com/worldnewsonmap"
+					class="fa solo fa-twitter"><span>Twitter</span></a></li>
+				<li><a
+					href="https://www.facebook.com/profile.php?id=100009234331056"
+					class="fa solo fa-facebook"><span>Facebook</span></a></li>
+				<li><a href="#" class="fa solo fa-google-plus"><span>Google+</span></a></li>
+				<li><a href="#" class="fa solo fa-pinterest"><span>Pinterest</span></a></li>
+			</ul>
+			<!-- Menu -->
+			<ul class="menu">
+				<li>&commat; Hemanshu Sheth</li>
+				<li><a href="http://google.com/"> <img
+						src="images/powered-by-google/powered-by-google-on-white.png" /></a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+</body>
+</html>

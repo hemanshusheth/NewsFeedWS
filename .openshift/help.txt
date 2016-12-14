@@ -1,0 +1,17 @@
+rhc setup
+
+deploy war to openshift jboss webapps
+1) go to local war path , scp war to remote app folder 
+scp NewsFeedWS.war 56b1775a0c1e66be8a00012c@webapp-worldnewsonmap.rhcloud.com:app-root/data/
+
+2) login to remote console thru ssh
+ssh 56b1775a0c1e66be8a00012c@webapp-worldnewsonmap.rhcloud.com
+
+3) move the war to webapps folder 
+mv app-root/data/NewsFeedWS.war app-root/dependencies/jbossews/webapps
+
+4)restart services
+ctl_all restart
+
+5)check logs
+tail_all tomcat.log

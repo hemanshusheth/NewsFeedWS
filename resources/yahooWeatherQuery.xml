@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng"
+    yahoo:count="1" yahoo:created="2016-03-20T02:53:26Z" yahoo:lang="en-US">
+    <results>
+        <channel>
+            <title>Yahoo! Weather - Nome, AK</title>
+            <link>http://us.rd.yahoo.com/dailynews/rss/weather/Nome__AK/*http://weather.yahoo.com/forecast/USAK0170_f.html</link>
+            <description>Yahoo! Weather for Nome, AK</description>
+            <language>en-us</language>
+            <lastBuildDate>Sat, 19 Mar 2016 5:52 pm AKDT</lastBuildDate>
+            <ttl>60</ttl>
+            <yweather:location
+                xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                city="Nome" country="United States" region="AK"/>
+            <yweather:units
+                xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                distance="mi" pressure="in" speed="mph" temperature="F"/>
+            <yweather:wind
+                xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                chill="3" direction="0" speed="5"/>
+            <yweather:atmosphere
+                xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                humidity="41" pressure="30.14" rising="2" visibility="10"/>
+            <yweather:astronomy
+                xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                sunrise="9:02 am" sunset="9:16 pm"/>
+            <image>
+                <title>Yahoo! Weather</title>
+                <width>142</width>
+                <height>18</height>
+                <link>http://weather.yahoo.com</link>
+                <url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
+            </image>
+            <item>
+                <title>Conditions for Nome, AK at 5:52 pm AKDT</title>
+                <geo:lat xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">64.5</geo:lat>
+                <geo:long xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">-165.41</geo:long>
+                <link>http://us.rd.yahoo.com/dailynews/rss/weather/Nome__AK/*http://weather.yahoo.com/forecast/USAK0170_f.html</link>
+                <pubDate>Sat, 19 Mar 2016 5:52 pm AKDT</pubDate>
+                <yweather:condition
+                    xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                    code="34" date="Sat, 19 Mar 2016 5:52 pm AKDT"
+                    temp="11" text="Fair"/>
+                <description><![CDATA[
+<img src="http://l.yimg.com/a/i/us/we/52/34.gif"/><br />
+<b>Current Conditions:</b><br />
+Fair, 11 F<BR />
+<BR /><b>Forecast:</b><BR />
+Sat - Clear. High: 12 Low: 2<br />
+Sun - Mostly Sunny. High: 17 Low: 12<br />
+Mon - Partly Cloudy. High: 30 Low: 13<br />
+Tue - Mostly Sunny. High: 30 Low: 11<br />
+Wed - Mostly Sunny. High: 21 Low: 4<br />
+<br />
+<a href="http://us.rd.yahoo.com/dailynews/rss/weather/Nome__AK/*http://weather.yahoo.com/forecast/USAK0170_f.html">Full Forecast at Yahoo! Weather</a><BR/><BR/>
+(provided by <a href="http://www.weather.com" >The Weather Channel</a>)<br/>
+]]></description>
+                <yweather:forecast
+                    xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                    code="31" date="19 Mar 2016" day="Sat" high="12"
+                    low="2" text="Clear"/>
+                <yweather:forecast
+                    xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                    code="34" date="20 Mar 2016" day="Sun" high="17"
+                    low="12" text="Mostly Sunny"/>
+                <yweather:forecast
+                    xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                    code="30" date="21 Mar 2016" day="Mon" high="30"
+                    low="13" text="Partly Cloudy"/>
+                <yweather:forecast
+                    xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                    code="34" date="22 Mar 2016" day="Tue" high="30"
+                    low="11" text="Mostly Sunny"/>
+                <yweather:forecast
+                    xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+                    code="34" date="23 Mar 2016" day="Wed" high="21"
+                    low="4" text="Mostly Sunny"/>
+                <guid isPermaLink="false">USAK0170_2016_03_23_7_00_AKDT</guid>
+            </item>
+        </channel>
+    </results>
+</query>
