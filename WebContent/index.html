@@ -7,6 +7,7 @@
 	content="Think of a place. Get News instantly from there" />
 <meta name="keywords" content="News, Map, Places, Location, Live Feeds" />
 <meta name="msvalidate.01" content="75D6A50BC151FB8DCB34C9478F9B8C5F" />
+<meta name="google-site-verification" content="6AlghPjtoxxMt0jokzphiyHWTYjGw94lZGlUnKgZLE0" />
 <link href="images/logo-20140917-favicon.ico" rel="shortcut icon"
 	type="image/x-icon" />
 <link href='http://fonts.googleapis.com/css?family=Roboto'
@@ -23,7 +24,9 @@
 </script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <!-- ICON NEEDS FONT AWESOME FOR CHEVRON UP ICON -->
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+	rel="stylesheet">
 
 <script type="text/javascript">
 	var marker;
@@ -48,36 +51,35 @@
 	var LOCATION_TYPE_ZIP = "zip";
 	var LOCATION_TYPE_CITY = "city";
 	var LOCATION_TYPE_STATE = "state";
-	var LOCATION_TYPE_COUNTRY ="country";
-	var GOOGLE_NEWS_WEBSERVICE = "http://webapp-worldnewsonmap.rhcloud.com//NewsFeedWS/rest/json/";
-	var YAHOO_WEATHER_WEBSERVICE = "http://webapp-worldnewsonmap.rhcloud.com/NewsFeedWS/rest/weather/json/";
-	var NEWS_TYPE="news";
-	var WEATHER_TYPE="weather";
-	
+	var LOCATION_TYPE_COUNTRY = "country";
+	var GOOGLE_NEWS_WEBSERVICE = "http://googlenewsonmap.com/rest/json/";
+	var YAHOO_WEATHER_WEBSERVICE = "http://googlenewsonmap.com/rest/weather/json/";
+	var NEWS_TYPE = "news";
+	var WEATHER_TYPE = "weather";
 </script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script>
 	$(document).ready(function() {
 		if ($('#back-to-top').length) {
-		    var scrollTrigger = 100, // px
-		        backToTop = function () {
-		            var scrollTop = $(window).scrollTop();
-		            if (scrollTop > scrollTrigger) {
-		                $('#back-to-top').addClass('show');
-		            } else {
-		                $('#back-to-top').removeClass('show');
-		            }
-		        };
-		    backToTop();
-		    $(window).on('scroll', function () {
-		        backToTop();
-		    });
-		    $('#back-to-top').on('click', function (e) {
-		        e.preventDefault();
-		        $('html,body').animate({
-		            scrollTop: 0
-		        }, 700);
-		    });
+			var scrollTrigger = 100, // px
+			backToTop = function() {
+				var scrollTop = $(window).scrollTop();
+				if (scrollTop > scrollTrigger) {
+					$('#back-to-top').addClass('show');
+				} else {
+					$('#back-to-top').removeClass('show');
+				}
+			};
+			backToTop();
+			$(window).on('scroll', function() {
+				backToTop();
+			});
+			$('#back-to-top').on('click', function(e) {
+				e.preventDefault();
+				$('html,body').animate({
+					scrollTop : 0
+				}, 700);
+			});
 		}
 	});
 </script>
@@ -122,11 +124,11 @@
 	</header>
 	<!-- Default button GO  -->
 	<script>
-		document.getElementById('go').onkeydown = function(e){
-	   	   if(e.keyCode == 13){
-	   		   buttonClickSearchLocation();
-	   		   }
-	   		};
+		document.getElementById('go').onkeydown = function(e) {
+			if (e.keyCode == 13) {
+				buttonClickSearchLocation();
+			}
+		};
 	</script>
 	<!-- Animated scroll -->
 	<script>
@@ -172,7 +174,8 @@
 							<img src="images\screenshots\search.png" />
 						</div>
 					</div>
-					<div class="6u">Search any location on map of which you to see news of</div>
+					<div class="6u">Search any location on map of which you to
+						see news of</div>
 				</div>
 				<div class="row half">
 					<div class="6u">Or you can simply point your mouse pointer to
@@ -196,15 +199,14 @@
 			<div>
 				<p>Hello folks. Allow me to introduce myself. I am Hemanshu
 					Sheth</p>
-				<p>
-					Welcome to my website googlemapnews.com.I am a Master's in
+				<p>Welcome to my website googlemapnews.com.I am a Master's in
 					Computer Science student at Northeastern University.I have done my
 					Bachelors&#39; in Computer Engineering at Rajiv Gandhi Institute of
-					technology,Mumbai,India.I live in Boston,Massachuessets and love 
-					working on interesting software project. This website was built as 
-					a school project by me and my colleague Amar Zavery,Currently, it is  
-					maintained by me with a lot of consultation and guidance of Krunal Sheth.
-				</p>
+					technology,Mumbai,India.I live in Boston,Massachuessets and love
+					working on interesting software project. This website was built as
+					a school project by me and my colleague Amar Zavery,Currently, it
+					is maintained by me with a lot of consultation and guidance of
+					Krunal Sheth.</p>
 			</div>
 		</div>
 	</section>
@@ -213,30 +215,32 @@
 		<div class="content container">
 			<header>
 				<h2>Say Hello</h2>
-				<p>Send in your feedback, suggestions, criticism or just say
-					Hi.</p>
+				<p>Send in your feedback, suggestions, criticism or just say Hi.</p>
 			</header>
 			<div class="box container small">
-				<form method="post" id="msg-form" action="http://webapp-worldnewsonmap.rhcloud.com/NewsFeedWS/sendMessageServlet">
+				<form method="post" id="msg-form"
+					action="http://googlenewsonmap.com/sendMessageServlet">
 					<div class="row half">
 						<div class="6u">
-							<input type="text" class="form-control" name="name" placeholder="Name" required=""/>
+							<input type="text" class="form-control" name="name"
+								placeholder="Name" required="" />
 						</div>
 						<div class="6u">
-							<input type="text" class="form-control" name="location" placeholder="Your Location" required=""/>
+							<input type="text" class="form-control" name="location"
+								placeholder="Your Location" required="" />
 						</div>
 					</div>
 					<div class="row half">
 						<div class="12u">
-							<textarea name="message" class="form-control" placeholder="Message" rows="6" required=""></textarea>
+							<textarea name="message" class="form-control"
+								placeholder="Message" rows="6" required=""></textarea>
 						</div>
 					</div>
 					<div class="row">
-						<div class="12u" style="padding-left: 350px;padding-top: 20px;">
+						<div class="12u" style="padding-left: 350px; padding-top: 20px;">
 							<ul class="actions">
 								<li><input type="submit" class="button"
-									value="Send Message" />
-								</li>
+									value="Send Message" /></li>
 							</ul>
 						</div>
 					</div>

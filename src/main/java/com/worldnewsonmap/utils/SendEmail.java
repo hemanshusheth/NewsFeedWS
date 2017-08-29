@@ -48,7 +48,7 @@ public class SendEmail extends HttpServlet {
 	 */
 	private void SendMessage(String name, String location, String msg) {
 		Properties properties = new Properties();
-		properties.put("mail.smtp.host", "send.one.com");
+		properties.put("mail.smtp.host", "xjdz3.dailyrazor.com");
 		properties.put("mail.smtp.socketFactory.port", "465");
 		properties.put("mail.smtp.socketFactory.class",
 				  	   "javax.net.ssl.SSLSocketFactory");
@@ -59,16 +59,16 @@ public class SendEmail extends HttpServlet {
 		Session session = Session.getDefaultInstance(properties,
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("feedback@googlemapnews.com",
-																		"f33dback");
+					return new PasswordAuthentication("contactus@googlenewsonmap.com",
+																		"Feedback#007");
 				}
 			});
 
 		// Recipient's email ID needs to be mentioned.
-	      String to = "feedback@googlemapnews.com";
+	      String to = "contactus@googlenewsonmap.com";
 
 	      // Sender's email ID needs to be mentioned
-	      String from = "feedback@googlemapnews.com";
+	      String from = "contactus@googlenewsonmap.com";
 
 	      try{
 	         // Create a default MimeMessage object.
@@ -92,7 +92,7 @@ public class SendEmail extends HttpServlet {
 	         System.out.println("Sent message successfully....");
 	      }
 	      catch (MessagingException mex){
-	    	  
+	    	  ServiceLogger.Severe(mex.getMessage());
 	      }
 	}
 

@@ -560,12 +560,11 @@ function createClientRequest(rest_url) {
 	var method = 'GET';
 	 if ("withCredentials" in xhr) {
 		xhr.open(method, rest_url, true);
-		xhr.setRequestHeader('Content-Type', 'application/json');
-		xhr.setRequestHeader('Cache-Control', 'max-age=3600');
-		xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:8080/');
+		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		xhr.setRequestHeader('Cache-Control','max-age=3600');
 		xhr.setRequestHeader('Access-Control-Allow-Methods', method);
 		xhr.setRequestHeader('Access-Control-Allow-Credentials', 'false');
-		xhr.setRequestHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+		xhr.setRequestHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Accept');
 	 }
 	 else if (typeof XDomainRequest != "undefined") {
 		    // Otherwise, check if XDomainRequest.
