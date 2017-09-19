@@ -650,6 +650,11 @@ function AddCountryPresent(resturl) {
 		return resturl += queryString;
 }
 
+function StripURL(link){
+	var startIndex = link.indexOf("&url=");
+	return link.substring(startIndex, link.length);
+}
+
 /*
  * geodecode error
  */
@@ -703,7 +708,11 @@ function generateNewsPopup(result) {
 					+ imgSrc
 					+ '">'
 					+ description
-					+ '<a class="readmorelink" href='
+					+'<a class="fa solo fa-twitter"'
+					  +'href="https://twitter.com/intent/tweet?text='
+					  	+StripURL(link)+'"'
+						  +'data-size="large"></a>'
+					+'<a class="readmorelink" href='
 					+ link
 					+ ' target="_blank">&nbsp;Read More&nbsp;&#x2794;</a></p></td></tr>';
 			html += '</table></td></tr>';
