@@ -506,6 +506,7 @@ function fetchNews(queryString) {
 	final_url = queryString;
 	var rest_url = GOOGLE_NEWS_WEBSERVICE + queryString;
 	rest_url = AddCountryPresent(rest_url);
+	rest_url += "&scoring=n";
 	rest_url = rest_url.replace(/ /g, "%20");
 	var client = createClientRequest(rest_url);
 	
@@ -577,7 +578,6 @@ function createClientRequest(rest_url) {
 		  }
 	return xhr;
 }
-
 
 // generate html for infowindow from feed call back
 function generateErrorHtml(result) {
@@ -711,7 +711,9 @@ function generateNewsPopup(result) {
 					+'<a class="fa solo fa-twitter"'
 					  +'href="https://twitter.com/intent/tweet?text='
 					  	+StripURL(link)+'"'
-						  +'data-size="large"></a>'
+						  +'data-size="large" '
+						  +'data-via="worldnewsonmap"'
+						  +'target="_blank">&nbsp;</a>'
 					+'<a class="readmorelink" href='
 					+ link
 					+ ' target="_blank">&nbsp;Read More&nbsp;&#x2794;</a></p></td></tr>';

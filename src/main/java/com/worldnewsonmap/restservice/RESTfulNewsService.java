@@ -48,7 +48,6 @@ public class RESTfulNewsService {
 		String feed_url = GOOGLE_NEWS_URL.concat(url);
 		try {
 			url = URLHelper.ParseURL(feed_url);
-			url = URLHelper.AddScoringToURL(url);
 			RSSFeedParser parser = new RSSFeedParser(url);
 			feed = parser.readFeed();
 		} catch (Exception e) {
@@ -65,7 +64,6 @@ public class RESTfulNewsService {
 		String feed_url = GOOGLE_NEWS_URL.concat(url);
 		try {
 			url = URLHelper.ParseURL(feed_url);
-			url = URLHelper.AddScoringToURL(url);
 			RSSFeedParser parser = new RSSFeedParser(url);
 			feed = parser.readFeed();
 		} catch (Exception e) {
@@ -83,7 +81,6 @@ public class RESTfulNewsService {
 		String feed_url = GOOGLE_NEWS_URL.concat(url);
 		try {
 			url = URLHelper.ParseURL(feed_url);
-			url = URLHelper.AddScoringToURL(url);
 			RSSFeedParser parser = new RSSFeedParser(url);
 			feed = parser.readFeed();
 			r = ReturnSuccess(feed);

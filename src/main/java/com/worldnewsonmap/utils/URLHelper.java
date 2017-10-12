@@ -38,14 +38,6 @@ public class URLHelper {
 		domainName = GoogleDomainResource.getDomainValue(country);
 		return domainName;
 	}
-
-	public static String AddScoringToURL(String url) throws MalformedURLException, 
-															URISyntaxException {
-		URIBuilder b = new URIBuilder(url);
-		b.addParameter("scoring", "n");
-		return b.build().toURL().toString();
-	}
-
 	/*
 	 * Replace incoming url with the default Google URL 
 	 * Domain names can be domain specific, default domain host is always news.google.com

@@ -3,11 +3,13 @@
  */
 package com.worldnewsonmap.utils;
 
-import java.util.Date;
+import org.apache.log4j.Logger;
+/*
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+*/
 
 /**
  * @author HEMANSHU
@@ -15,6 +17,7 @@ import java.util.logging.Logger;
  */
 public class ServiceLogger {
 
+    /* Java logger
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	private static Logger logger = Logger.getLogger("RESTfulNewsService");
 	private static StringBuilder sb = new StringBuilder();
@@ -40,18 +43,20 @@ public class ServiceLogger {
             });
 		Logger.getLogger("com.sun.jersey").setLevel(Level.FINEST);
 	}
-   	
+   	*/
+	
+	final static Logger logger = Logger.getLogger(ServiceLogger.class);
 	
 	public static void Info(String message){
 		logger.info(message);
 	}
 	
 	public static void Warning(String message){
-		logger.warning(message);
+		logger.warn(message);
 	}
 	
 	public static void Severe(String message){
-		logger.severe(message);
+		logger.fatal(message);
 	}
 
 }
