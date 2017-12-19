@@ -22,9 +22,10 @@ public class TestClass {
 	private static String geoUS= "&geo=San%20Francisco%20United%20States&scoring=n";
 	private static String geoNonUS= "&geo=Paris%20France&scoring=n";
 	private static String countryUrl = "&geo=Paris%20Île-de-France%20France&country=France";
-	
+	private static String pollutionUrl ="https://api.waqi.info/feed/geo:40.1;38.1/?";
 	public static void main(String[] args){
-		invokeRestService(countryUrl);
+		//invokeRestService(countryUrl);
+		invokeRestServiceForPollution(pollutionUrl);
 		//GoogleDomainResource r = new GoogleDomainResource();
 		//testParser();
 	}
@@ -66,6 +67,23 @@ public class TestClass {
 			 System.out.println(final_url);
 			//Targeting the RESTful Webservice we want to invoke by capturing it in WebTarget instance.
 			 Response response = client.target(final_url).request().get();
+		     //Read output in string format
+		     String value = response.readEntity(String.class);
+		     System.out.println(value);
+		        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void invokeRestServiceForPollution(String url) {
+		try 
+		{
+			ResteasyClient client = new ResteasyClientBuilder().build();
+			String tokenValue ="token=2723354b9da0539149dff367059989e400f71fec";
+			String rest_base_url =url+ tokenValue;
+			System.out.println(rest_base_url);
+			Response response = client.target(rest_base_url).request().get();
 		     //Read output in string format
 		     String value = response.readEntity(String.class);
 		     System.out.println(value);

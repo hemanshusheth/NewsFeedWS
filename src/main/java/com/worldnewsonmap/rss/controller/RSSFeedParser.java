@@ -110,8 +110,9 @@ public class RSSFeedParser {
 						break;
 					case ITEM:
 						feedMessage = new FeedMessage(event, eventReader);
-						if (feedMessage != null)
-							feedMessages.add(feedMessage);
+						if (feedMessage != null && feedMessage.IsValidFeedMessage()){
+								feedMessages.add(feedMessage);
+							}
 						break;
 					}
 				} else if (event.isEndElement()) {

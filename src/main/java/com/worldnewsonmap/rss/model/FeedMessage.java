@@ -47,18 +47,23 @@ public class FeedMessage {
 			while (eventReader.hasNext()) {
 				event = eventReader.nextEvent();
 				if (event.isStartElement()) {
-					String localPart = event.asStartElement().getName().getLocalPart();
+					String localPart = event.asStartElement().getName()
+							.getLocalPart();
 					switch (localPart) {
 					case TITLE:
 						title = getCharacterData(event, eventReader);
-						headline = title.substring(0, title.indexOf(" - "));
-						publisher = title.substring(title.indexOf(" - ") + 2);
+						if (title.contains(" - ")) {
+							headline = title.substring(0, title.indexOf(" - "));
+							publisher = title
+									.substring(title.indexOf(" - ") + 2);
+						}
 						break;
 					case LINK:
 						link = getCharacterData(event, eventReader);
 						break;
 					case DESCRIPTION:
-						String descriptionHTML = getCharacterData(event, eventReader);
+						String descriptionHTML = getCharacterData(event,
+								eventReader);
 						newsItem = new NewsItem(descriptionHTML);
 						description = newsItem.getStory();
 						imgSource = newsItem.getImgSource();
@@ -73,22 +78,27 @@ public class FeedMessage {
 						category = getCharacterData(event, eventReader);
 						break;
 					}
-				} else if (event.isEndElement()) {
-					if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
+				}
+				else if (event.isEndElement()) {
+					if (event.asEndElement().getName()
+							.getLocalPart() == (ITEM)) {
 						return;
 					}
 				}
 			}
-		} catch (XMLStreamException e) {
+		}
+		catch (XMLStreamException e) {
 			// rss feed xml formation error
-			 System.out.println();
+			System.out.println();
 		}
 	}
 
-	private String getCharacterData(XMLEvent event, XMLEventReader eventReader) {
+	private String getCharacterData(XMLEvent event,
+			XMLEventReader eventReader) {
 		try {
 			return eventReader.getElementText();
-		} catch (XMLStreamException e) {
+		}
+		catch (XMLStreamException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -122,7 +132,8 @@ public class FeedMessage {
 	@SuppressWarnings("deprecation")
 	public String getPubdate() {
 		Date date = new Date(pubdate);
-		SimpleDateFormat inputFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.getDefault());
+		SimpleDateFormat inputFormat = new SimpleDateFormat(
+				"EEE, dd MMM yyyy HH:mm:ss z", Locale.getDefault());
 		pubdate = inputFormat.format(date);
 		return pubdate;
 	}
@@ -133,8 +144,16 @@ public class FeedMessage {
 
 	@Override
 	public String toString() {
-		return "FeedMessage [headline=" + headline + ", publisher=" + publisher + ", description=" + newsItem.getStory()
-				+ ", image Source=" + newsItem.getImgSource() + ", link=" + link + ", category=" + category + ", guid="
-				+ guid + ",pubData=" + getPubdate() + "]";
+		return "FeedMessage [headline=" + headline + ", publisher=" + publisher
+				+ ", description=" + newsItem.getStory() + ", image Source="
+				+ newsItem.getImgSource() + ", link=" + link + ", category="
+				+ category + ", guid=" + guid + ",pubData=" + getPubdate()
+				+ "]";
+	}
+
+	public boolean IsValidFeedMessage() {
+		if (guid != null && guid.endsWith("cluster=0"))
+			return false;
+		return true;
 	}
 }
