@@ -1,17 +1,4 @@
-/*
- * Custom blue map ,styles: [ {"featureType":"landscape", "stylers":[
- * {"hue":"#F1FF00"}, {"saturation":-27.4}, {"lightness":9.4}, {"gamma":1} ] },
- * {"featureType":"road.highway", "stylers":[ {"hue":"#0099FF"},
- * {"saturation":-20}, {"lightness":36.4}, {"gamma":1} ] },
- * {"featureType":"road.arterial", "stylers":[ {"hue":"#00FF4F"},
- * {"saturation":0}, {"lightness":0}, {"gamma":1} ] },
- * {"featureType":"road.local", "stylers":[ {"hue":"#FFB300"},
- * {"saturation":-38}, {"lightness":11.2}, {"gamma":1} ] },
- * {"featureType":"water", "stylers":[ {"hue":"#00B6FF"},
- * {"saturation":4.2}, {"lightness":-63.4}, {"gamma":1} ] },
- * {"featureType":"poi", "stylers":[ {"hue":"#9FFF00"}, {"saturation":0},
- * {"lightness":0}, {"gamma":1} ] }] };
- * 
+/* 
  * /*Custom Overlay window
  * 
  * var myOptions = { disableAutoPan: false ,maxWidth: 0 ,pixelOffset: new
@@ -28,13 +15,14 @@ function initialize() {
 	geocoder = new google.maps.Geocoder();
 	marker = new google.maps.Marker();
 	infoWindow = new google.maps.InfoWindow();
-	var myLatlng = new google.maps.LatLng(42.3581, -71.0636);
+	var myLatlng = new google.maps.LatLng(42.3581, -79.0636);
 	image = 'images/thumbs/rss_big.png';
 
 	var mapOptions = {
 		center : myLatlng,
-		zoom : ZOOM_LEVEL_CITY
-	};
+		zoom : ZOOM_LEVEL_CITY,
+		styles: [{"featureType":"water","stylers":[{"color":"#19a0d8"}]},{"featureType":"administrative","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"},{"weight":6}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-40}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-20}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"road.highway","elementType":"labels.icon"},{"featureType":"landscape","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape","stylers":[{"lightness":20},{"color":"#efe9e4"}]},{"featureType":"landscape.man_made","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"hue":"#11ff00"}]},{"featureType":"poi","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"hue":"#4cff00"},{"saturation":58}]},{"featureType":"poi","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#f0e4d3"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-10}]}],
+		};
 
 	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	// Create the DIV to hold the control and call the CenterControl()
@@ -52,10 +40,24 @@ function initialize() {
 	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(newsTypeDiv);
 
 	var input = document.getElementById('address');
-
 	var autocomplete = new google.maps.places.Autocomplete(input);
 	autocomplete.bindTo('bounds', map);
-
+	autocomplete.addListener('place_changed', function() {
+		marker.setMap(null);
+		var place = autocomplete.getPlace();
+		placeMarkerAutoComplete(place);
+	});
+	
+	if (navigator.geolocation) {
+		 navigator.geolocation.getCurrentPosition(function(position) {
+		// Get the coordinates of the current position.
+	      var lat = position.coords.latitude;
+	      var lng = position.coords.longitude;
+	      myLatlng = new google.maps.LatLng(lat, lng);
+			 map.panTo(myLatlng);
+		 });
+	}
+	
 	// action listeners
 	google.maps.event.addListener(map, 'click', function(e) {
 		placeMarker(e);
@@ -89,11 +91,6 @@ function initialize() {
 		timeout : 5000,
 		maximumAge : 0
 	};
-
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(panToCurrentPosition, error,
-				geolocationoptions);
-	}
 }
 
 var controlText;
@@ -234,6 +231,15 @@ function placeMarker(position) {
 	GeoCodeLocation();
 }
 
+function placeMarkerAutoComplete(place) {
+	// clear marker
+	marker.setMap(null);
+	myLatlng = new google.maps.LatLng(
+			place.geometry.location.lat() , 
+			place.geometry.location.lng());
+	buttonClickSearchLocation();
+}
+
 function GeoCodeLocation() {
 	if (myLatlng != null) {
 		geocoder.geocode({
@@ -264,10 +270,8 @@ function GeoCodeLocation() {
 
 function buttonClickSearchLocation() {
 	// clear marker
-	marker.setMap(null);
-	var address = document.getElementById("address").value;
 	geocoder.geocode({
-		'address' : address
+		'latLng' : myLatlng
 	}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			map.setCenter(results[0].geometry.location);
@@ -287,6 +291,11 @@ function buttonClickSearchLocation() {
 		}
 	});
 }
+
+function setWindowOnMap(location){
+	
+}
+
 
 // sets the infowindow for results on specified map ,marker position
 function setInfoWindow(results, map, marker) {
@@ -450,6 +459,7 @@ function processMouseLocation(location, map) {
 			selectedLocation = geoLocation.country;
 		}
 	}
+	map.setZoom(locationType);
 	geo_url = "&geo=" + addressBuilder(geoLocation, locationType);
 	base_url = geo_url;
 	return base_url;

@@ -15,6 +15,7 @@ import com.worldnewsonmap.rss.controller.RSSFeedParser;
 import com.worldnewsonmap.rss.model.Feed;
 import com.worldnewsonmap.rss.model.FeedMessage;
 import com.worldnewsonmap.utils.GoogleDomainResource;
+import com.worldnewsonmap.utils.SendEmail;
 
 
 public class TestClass {

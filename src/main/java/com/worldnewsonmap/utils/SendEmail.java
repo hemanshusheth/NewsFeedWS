@@ -46,8 +46,9 @@ public class SendEmail extends HttpServlet {
 	/*
 	 * 
 	 */
-	private void SendMessage(String name, String location, String msg) {
+	public void SendMessage(String name, String location, String msg) {
 		Properties properties = new Properties();
+		properties.put("mail.smtp.starttls.enable","true");
 		properties.put("mail.smtp.host", "xjdz3.dailyrazor.com");
 		properties.put("mail.smtp.socketFactory.port", "465");
 		properties.put("mail.smtp.socketFactory.class",
