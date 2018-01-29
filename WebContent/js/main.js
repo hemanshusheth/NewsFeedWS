@@ -15,14 +15,138 @@ function initialize() {
 	geocoder = new google.maps.Geocoder();
 	marker = new google.maps.Marker();
 	infoWindow = new google.maps.InfoWindow();
-	var myLatlng = new google.maps.LatLng(42.3581, -79.0636);
+	var myLatlng = new google.maps.LatLng(42.3581, -71.0636);
 	image = 'images/thumbs/rss_big.png';
 
 	var mapOptions = {
 		center : myLatlng,
 		zoom : ZOOM_LEVEL_CITY,
-		styles: [{"featureType":"water","stylers":[{"color":"#19a0d8"}]},{"featureType":"administrative","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"},{"weight":6}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-40}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-20}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"road.highway","elementType":"labels.icon"},{"featureType":"landscape","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape","stylers":[{"lightness":20},{"color":"#efe9e4"}]},{"featureType":"landscape.man_made","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"hue":"#11ff00"}]},{"featureType":"poi","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"hue":"#4cff00"},{"saturation":58}]},{"featureType":"poi","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#f0e4d3"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-10}]}],
-		};
+		styles : [ {
+			"featureType" : "water",
+			"stylers" : [ {
+				"color" : "#19a0d8"
+			} ]
+		}, {
+			"featureType" : "administrative",
+			"elementType" : "labels.text.stroke",
+			"stylers" : [ {
+				"color" : "#ffffff"
+			}, {
+				"weight" : 6
+			} ]
+		}, {
+			"featureType" : "administrative",
+			"elementType" : "labels.text.fill",
+			"stylers" : [ {
+				"color" : "#000000"
+			} ]
+		}, {
+			"featureType" : "road.highway",
+			"elementType" : "geometry.stroke",
+			"stylers" : [ {
+				"color" : "#efe9e4"
+			}, {
+				"lightness" : -40
+			} ]
+		}, {
+			"featureType" : "road.arterial",
+			"elementType" : "geometry.stroke",
+			"stylers" : [ {
+				"color" : "#efe9e4"
+			}, {
+				"lightness" : -20
+			} ]
+		}, {
+			"featureType" : "road",
+			"elementType" : "labels.text.stroke",
+			"stylers" : [ {
+				"lightness" : 100
+			} ]
+		}, {
+			"featureType" : "road",
+			"elementType" : "labels.text.fill",
+			"stylers" : [ {
+				"lightness" : -100
+			} ]
+		}, {
+			"featureType" : "road.highway",
+			"elementType" : "labels.icon"
+		}, {
+			"featureType" : "landscape",
+			"elementType" : "labels",
+			"stylers" : [ {
+				"visibility" : "off"
+			} ]
+		}, {
+			"featureType" : "landscape",
+			"stylers" : [ {
+				"lightness" : 20
+			}, {
+				"color" : "#efe9e4"
+			} ]
+		}, {
+			"featureType" : "landscape.man_made",
+			"stylers" : [ {
+				"visibility" : "off"
+			} ]
+		}, {
+			"featureType" : "water",
+			"elementType" : "labels.text.stroke",
+			"stylers" : [ {
+				"lightness" : 100
+			} ]
+		}, {
+			"featureType" : "water",
+			"elementType" : "labels.text.fill",
+			"stylers" : [ {
+				"lightness" : -100
+			} ]
+		}, {
+			"featureType" : "poi",
+			"elementType" : "labels.text.fill",
+			"stylers" : [ {
+				"hue" : "#11ff00"
+			} ]
+		}, {
+			"featureType" : "poi",
+			"elementType" : "labels.text.stroke",
+			"stylers" : [ {
+				"lightness" : 100
+			} ]
+		}, {
+			"featureType" : "poi",
+			"elementType" : "labels.icon",
+			"stylers" : [ {
+				"hue" : "#4cff00"
+			}, {
+				"saturation" : 58
+			} ]
+		}, {
+			"featureType" : "poi",
+			"elementType" : "geometry",
+			"stylers" : [ {
+				"visibility" : "on"
+			}, {
+				"color" : "#f0e4d3"
+			} ]
+		}, {
+			"featureType" : "road.highway",
+			"elementType" : "geometry.fill",
+			"stylers" : [ {
+				"color" : "#efe9e4"
+			}, {
+				"lightness" : -25
+			} ]
+		}, {
+			"featureType" : "road.arterial",
+			"elementType" : "geometry.fill",
+			"stylers" : [ {
+				"color" : "#efe9e4"
+			}, {
+				"lightness" : -10
+			} ]
+		} ],
+	};
 
 	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	// Create the DIV to hold the control and call the CenterControl()
@@ -47,17 +171,17 @@ function initialize() {
 		var place = autocomplete.getPlace();
 		placeMarkerAutoComplete(place);
 	});
-	
+
 	if (navigator.geolocation) {
-		 navigator.geolocation.getCurrentPosition(function(position) {
-		// Get the coordinates of the current position.
-	      var lat = position.coords.latitude;
-	      var lng = position.coords.longitude;
-	      myLatlng = new google.maps.LatLng(lat, lng);
-			 map.panTo(myLatlng);
-		 });
+		navigator.geolocation.getCurrentPosition(function(position) {
+			// Get the coordinates of the current position.
+			var lat = position.coords.latitude;
+			var lng = position.coords.longitude;
+			myLatlng = new google.maps.LatLng(lat, lng);
+			map.panTo(myLatlng);
+		});
 	}
-	
+
 	// action listeners
 	google.maps.event.addListener(map, 'click', function(e) {
 		placeMarker(e);
@@ -94,6 +218,10 @@ function initialize() {
 }
 
 var controlText;
+var newsTypeText;
+var weatherTypeText;
+var pollutionTypeText;
+var newsType;
 /**
  * The CenterControl adds a control to the map that indicates Geographic
  * Location type. This constructor takes the control DIV as an argument.
@@ -122,12 +250,12 @@ function CenterControl(controlDiv, map) {
 	controlText.style.lineHeight = '38px';
 	controlText.style.paddingLeft = '5px';
 	controlText.style.paddingRight = '5px';
-	controlText.innerHTML = 'Street';
+	controlText.innerHTML = 'City';
 	controlUI.appendChild(controlText);
+	map.setZoom(ZOOM_LEVEL_CITY);
 }
 
 function NewsTypeControl(controlDiv, map) {
-
 	// Set CSS for the control border.
 	var controlUI = document.createElement('div');
 	controlUI.style.backgroundColor = '#F0F0F0';
@@ -149,7 +277,7 @@ function NewsTypeControl(controlDiv, map) {
 	newsTypeText.style.paddingRight = '5px';
 	newsTypeText.innerHTML = 'News';
 	newsTypeText.style.borderTop = '2px solid #0000FF';
-	
+
 	// Set CSS for the control interior.
 	weatherTypeText = document.createElement('div');
 	weatherTypeText.style.color = 'rgb(25, 25, 25)';
@@ -159,20 +287,43 @@ function NewsTypeControl(controlDiv, map) {
 	weatherTypeText.style.paddingLeft = '5px';
 	weatherTypeText.style.paddingRight = '5px';
 	weatherTypeText.innerHTML = 'Weather';
-	
+
+	pollutionTypeText = document.createElement('div');
+	pollutionTypeText.style.color = 'rgb(25, 25, 25)';
+	pollutionTypeText.style.fontFamily = 'Roboto,Arial,sans-serif';
+	pollutionTypeText.style.fontSize = '16px';
+	pollutionTypeText.style.lineHeight = '38px';
+	pollutionTypeText.style.paddingLeft = '5px';
+	pollutionTypeText.style.paddingRight = '5px';
+	pollutionTypeText.innerHTML = 'Pollution';
+
 	controlUI.appendChild(newsTypeText);
+	controlUI.appendChild(weatherTypeText);
+	//controlUI.appendChild(pollutionTypeText);
+	
 	newsTypeText.addEventListener('click', function() {
 		newsTypeText.style.borderTop = '2px solid #0000FF';
 		weatherTypeText.style.borderTop = '2px solid #FFFFFF';
+		pollutionTypeText.style.borderTop = '2px solid #FFFFFF';
 		newsType = NEWS_TYPE;
 	}, false);
-	controlUI.appendChild(weatherTypeText);
+	
 	weatherTypeText.addEventListener('click', function() {
 		weatherTypeText.style.borderTop = '2px solid #0000FF';
 		newsTypeText.style.borderTop = '2px solid #FFFFFF';
+		pollutionTypeText.style.borderTop = '2px solid #FFFFFF';
 		newsType = WEATHER_TYPE;
 	}, false);
+	
+	pollutionTypeText.addEventListener('click', function() {
+		pollutionTypeText.style.borderTop = '2px solid #0000FF';
+		weatherTypeText.style.borderTop = '2px solid #FFFFFF';
+		newsTypeText.style.borderTop = '2px solid #FFFFFF';
+		newsType = POLLUTION_TYPE;
+	}, false);
+	
 }
+
 
 // indicates map zoom level set by the user
 function ChangeZoomLabel(event) {
@@ -198,28 +349,20 @@ function ChangeZoomLabel(event) {
 /*
  * Pans the map position to current location
  */
-function panToCurrentPosition(position) {
-	marker.setMap(null);
-	myLatlng = new google.maps.LatLng(position.coords.latitude,
-			position.coords.longitude);
+function panToCurrentPosition(position, map) {
 	geocoder
-			.geocode(
-					{
-						'location' : myLatlng
-					},
-					function(results, status) {
-						if (status == google.maps.GeocoderStatus.OK) {
-							if (results[0]) {
-								document.getElementById('address').value = results[0].formatted_address;
-								map.panTo(myLatlng);
-							}
+		.geocode(
+				{
+					'location' : myLatlng
+				},
+				function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						if (results[0]) {
+							map.panTo(myLatlng);
 						}
-					});
+					}
+				});
 }
-
-var newsTypeText;
-var weatherTypeText;
-var newsType;
 
 /*
  * Entry point for all clicks on Map Geocodes locations and place marker
@@ -231,13 +374,13 @@ function placeMarker(position) {
 	GeoCodeLocation();
 }
 
+
 function placeMarkerAutoComplete(place) {
 	// clear marker
-	marker.setMap(null);
 	myLatlng = new google.maps.LatLng(
-			place.geometry.location.lat() , 
+			place.geometry.location.lat(),
 			place.geometry.location.lng());
-	buttonClickSearchLocation();
+	buttonClickSearchLocation(place);
 }
 
 function GeoCodeLocation() {
@@ -246,17 +389,14 @@ function GeoCodeLocation() {
 			'latLng' : myLatlng
 		}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				if (results[1]) {
+				if (results[0] != undefined) {
 					// set new marker
 					marker = new google.maps.Marker({
 						position : myLatlng,
 						map : map,
 						icon : image
 					});
-					if (newsType == WEATHER_TYPE)
-						setMouseWeatherInfoWindow(results, map, marker);
-					else
-						setMouseInfoWindow(results, map, marker);
+					BuildInfoWindow(results[0] , map, marker);
 					map.panTo(myLatlng);
 				} else {
 					alert('No results found');
@@ -268,32 +408,29 @@ function GeoCodeLocation() {
 	}
 }
 
-function buttonClickSearchLocation() {
-	// clear marker
-	geocoder.geocode({
-		'latLng' : myLatlng
-	}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			map.setCenter(results[0].geometry.location);
-			marker = new google.maps.Marker({
-				map : map,
-				position : results[0].geometry.location,
-				icon : image
-			});
-			if (newsType == WEATHER_TYPE)
-				setWeatherInfoWindow(results, map, marker);
-			else
-				setInfoWindow(results, map, marker);
-			map.panTo(results[0].geometry.location);
-		} else {
-			alert("Geocode was not successful for the following reason: "
-					+ status);
-		}
-	});
+function BuildInfoWindow(results , map, marker){
+	if (newsType == WEATHER_TYPE)
+		setMouseWeatherInfoWindow(results, map, marker);
+	else if (newsType == POLLUTION_TYPE)
+		setMousePollutionInfoWindow(results, map, marker);
+	else
+		setMouseInfoWindow(results, map, marker);
 }
 
-function setWindowOnMap(location){
-	
+function buttonClickSearchLocation(place) {
+	if (place != undefined) {
+		map.setCenter(place.geometry.location);
+		// set new marker
+		marker = new google.maps.Marker({
+			position : myLatlng,
+			map : map,
+			icon : image
+		});
+		BuildInfoWindow(place , map, marker);
+		panToCurrentPosition(place.geometry.location, map);
+	} else {
+		alert("Geocode was not successful for the following reason: " + status);
+	}
 }
 
 
@@ -314,7 +451,7 @@ function GeoLocation(zip, city, county, state, country) {
 	this.city = city;
 	this.county = county;
 	this.state = state;
-	this.country = country;
+	this.country = country;	
 }
 
 function buildGeoLocation(location) {
@@ -368,6 +505,7 @@ function processLocation(location, map) {
 	return base_url;
 }
 
+
 function setMouseWeatherInfoWindow(results, map, marker) {
 	var weather_news_url = processMouseWeatherLocation(results, map);
 	fetchWeatherNews(weather_news_url);
@@ -390,6 +528,14 @@ function processMouseWeatherLocation(location, map) {
 	return address;
 }
 
+function setMousePollutionInfoWindow(results, map, marker) {
+
+}
+
+function setMousePollutionInfoWindow(results, map, marker) {
+
+}
+
 // location types can be
 // "administrative_area_level_1" = state
 // "administrative_area_level_2" == county / district
@@ -404,10 +550,10 @@ function processMouseWeatherLocation(location, map) {
 // search location from address
 
 function getLocation(location, type) {
-	for (var i = 0; i < location[0].address_components.length; i++) {
-		var location_type = location[0].address_components[i].types[0];
+	for (var i = 0; i < location.address_components.length; i++) {
+		var location_type = location.address_components[i].types[0];
 		if (location_type == type) {
-			return location[0].address_components[i].long_name;
+			return location.address_components[i].long_name;
 		}
 	}
 }
@@ -459,11 +605,12 @@ function processMouseLocation(location, map) {
 			selectedLocation = geoLocation.country;
 		}
 	}
-	map.setZoom(locationType);
+
 	geo_url = "&geo=" + addressBuilder(geoLocation, locationType);
 	base_url = geo_url;
 	return base_url;
 }
+
 
 function addressBuilder(geoLocation, locationType) {
 	var geo_url;
@@ -502,6 +649,7 @@ function addressBuilder(geoLocation, locationType) {
 	return geo_url;
 }
 
+
 function getFormattedLocation(location) {
 	var geoLocation = buildGeoLocation(location);
 	if (typeof (geoLocation.city) != "undefined")
@@ -519,10 +667,10 @@ function fetchNews(queryString) {
 	rest_url += "&scoring=n";
 	rest_url = rest_url.replace(/ /g, "%20");
 	var client = createClientRequest(rest_url);
-	
-	if(client!=null){ 
-		client.followsRedirect=false;
-		client.onreadystatechange = function() { 
+
+	if (client != null) {
+		client.followsRedirect = false;
+		client.onreadystatechange = function() {
 			if (client.readyState == 4) {
 				if (client.status == 200) {
 					var response = eval('(' + client.responseText + ')');
@@ -546,8 +694,8 @@ function fetchWeatherNews(weather_address) {
 	rest_url += weather_address;
 	rest_url = rest_url.replace(/ /g, "%20");
 	var client = createClientRequest(rest_url);
-	if(client!=null){ 
-		client.followsRedirect=false;
+	if (client != null) {
+		client.followsRedirect = false;
 		client.onreadystatechange = function() {
 			if (client.readyState == 4) {
 				if (client.status == 200) {
@@ -566,26 +714,29 @@ function fetchWeatherNews(weather_address) {
 	}
 }
 
+
 function createClientRequest(rest_url) {
 	var xhr = new XMLHttpRequest();
 	var method = 'GET';
-	 if ("withCredentials" in xhr) {
+	if ("withCredentials" in xhr) {
 		xhr.open(method, rest_url, true);
-		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-		xhr.setRequestHeader('Cache-Control','max-age=3600');
+		xhr.setRequestHeader('Content-Type',
+				'application/x-www-form-urlencoded');
+		xhr.setRequestHeader('Cache-Control', 'max-age=3600');
 		xhr.setRequestHeader('Access-Control-Allow-Methods', method);
 		xhr.setRequestHeader('Access-Control-Allow-Credentials', 'false');
-		xhr.setRequestHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Accept');
-	 }
-	 else if (typeof XDomainRequest != "undefined") {
-		    // Otherwise, check if XDomainRequest.
-		    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-		    xhr = new XDomainRequest();
-		    xhr.open(method, rest_url);
-		  } else {
-		    // Otherwise, CORS is not supported by the browser.
-		    xhr = null;
-		  }
+		xhr.setRequestHeader('Access-Control-Allow-Headers',
+				'Origin, X-Requested-With, Accept');
+	} else if (typeof XDomainRequest != "undefined") {
+		// Otherwise, check if XDomainRequest.
+		// XDomainRequest only exists in IE, and is IE's way of making CORS
+		// requests.
+		xhr = new XDomainRequest();
+		xhr.open(method, rest_url);
+	} else {
+		// Otherwise, CORS is not supported by the browser.
+		xhr = null;
+	}
 	return xhr;
 }
 
@@ -660,7 +811,7 @@ function AddCountryPresent(resturl) {
 		return resturl += queryString;
 }
 
-function StripURL(link){
+function StripURL(link) {
 	var startIndex = link.indexOf("&url=");
 	return link.substring(startIndex, link.length);
 }
@@ -718,13 +869,14 @@ function generateNewsPopup(result) {
 					+ imgSrc
 					+ '">'
 					+ description
-					+'<a class="fa solo fa-twitter"'
-					  +'href="https://twitter.com/intent/tweet?text='
-					  	+StripURL(link)+'"'
-						  +'data-size="large" '
-						  +'data-via="worldnewsonmap"'
-						  +'target="_blank">&nbsp;</a>'
-					+'<a class="readmorelink" href='
+					+ '<a class="fa solo fa-twitter"'
+					+ 'href="https://twitter.com/intent/tweet?text='
+					+ StripURL(link)
+					+ '"'
+					+ 'data-size="large" '
+					+ 'data-via="worldnewsonmap"'
+					+ 'target="_blank">&nbsp;</a>'
+					+ '<a class="readmorelink" href='
 					+ link
 					+ ' target="_blank">&nbsp;Read More&nbsp;&#x2794;</a></p></td></tr>';
 			html += '</table></td></tr>';
@@ -737,6 +889,7 @@ function generateNewsPopup(result) {
 	}
 	return html;
 }
+
 
 function generateWeatherPopup(result) {
 	var html = '<!DOCTYPE html><html><head><link rel="stylesheet" href="css/style.css" />'
@@ -762,15 +915,19 @@ function generateWeatherPopup(result) {
 			+ '<td>&nbsp;</td>'
 			+ '<td>Chill</td>'
 			+ '<td>'
-			+ result.wind.chill+' '
-			+ result.units.speed+'</td>'
+			+ result.wind.chill
+			+ ' '
+			+ result.units.speed
+			+ '</td>'
 			+ '</tr>'
 			+ '<tr>'
 			+ '<td>&nbsp;</td>'
 			+ '<td>Direction</td>'
 			+ '<td>'
-			+ result.wind.direction+' '
-			+ result.units.speed+'</td>'
+			+ result.wind.direction
+			+ ' '
+			+ result.units.speed
+			+ '</td>'
 			+ '</tr>'
 			+ '<tr>'
 			+ '<td>&nbsp;</td>'
@@ -791,8 +948,10 @@ function generateWeatherPopup(result) {
 			+ '<tr>'
 			+ '<td>Visibility</td>'
 			+ '<td>'
-			+ result.atmosphere.visibility+' '
-			+ result.units.distance+'</td>'
+			+ result.atmosphere.visibility
+			+ ' '
+			+ result.units.distance
+			+ '</td>'
 			+ '</tr>'
 			+ '<tr><td class="topic" colspan="2" style="border-bottom-width: 1px;">Astronomy</td></tr>'
 			+ '<tr>'
@@ -815,7 +974,6 @@ function generateWeatherPopup(result) {
 			+ '<tr>'
 			+ '<td colspan="4" style="height: 50px"><img alt="Yahoo News Weather" height="30" '
 			+ 'src="http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif" class="ywimage"></td>'
-			+ '</tr>' 
-			+ '</table></div></body></html>';
+			+ '</tr>' + '</table></div></body></html>';
 	return html
 }

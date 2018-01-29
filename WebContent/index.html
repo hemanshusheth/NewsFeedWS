@@ -54,9 +54,11 @@
 	var LOCATION_TYPE_COUNTRY = "country";
 	var GOOGLE_NEWS_WEBSERVICE = "http://googlenewsonmap.com/rest/json/";
 	var YAHOO_WEATHER_WEBSERVICE = "http://googlenewsonmap.com/rest/weather/json/";
-	var WAQI_POLLUTION_WEBSERVICE ="https://api.waqi.info/feed/shanghai/?token=2723354b9da0539149dff367059989e400f71fec";
+	var WAQI_POLLUTION_WEBSERVICE ="https://api.waqi.info/feed/";
+	var WAQI_POLLUTION_TOKEN = "2723354b9da0539149dff367059989e400f71fec";
 	var NEWS_TYPE = "news";
 	var WEATHER_TYPE = "weather";
+	var POLLUTION_TYPE ="pollution";
 </script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script>
@@ -212,7 +214,7 @@
 			</header>
 			<div class="box container small">
 				<form method="post" id="msg-form"
-					action="http://localhost:8080/NewsFeedWS/sendMessageServlet">
+					action="http://googlenewsonmap.com/sendMessageServlet">
 					<div class="row half">
 						<div class="6u">
 							<input type="text" class="form-control" name="name"
